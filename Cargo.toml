@@ -3,8 +3,4 @@ name = "theorem"
 version = "0.1.0"
 authors = ["Tom Streller <tom.streller@functional-games.de>"]
 
-[lib]
-name = "theorem"
-path = "src/theorem/lib.rs"
-
 [dependencies]
