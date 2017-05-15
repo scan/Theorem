@@ -2,8 +2,8 @@ use std::ops::{Add, Sub, Mul, Neg};
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct Point {
-    x: i32,
-    y: i32,
+    pub x: i32,
+    pub y: i32,
 }
 
 impl Point {
@@ -12,11 +12,20 @@ impl Point {
     }
 }
 
+impl Default for Point {
+    fn default() -> Point {
+        Point { x: 0, y: 0 }
+    }
+}
+
 impl Neg for Point {
     type Output = Point;
 
     fn neg(self) -> Point {
-        Point { x: -self.x, y: -self.y }
+        Point {
+            x: -self.x,
+            y: -self.y,
+        }
     }
 }
 
@@ -24,7 +33,10 @@ impl Add for Point {
     type Output = Point;
 
     fn add(self, other: Point) -> Point {
-        Point { x: self.x + other.x, y: self.y + other.y }
+        Point {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
     }
 }
 
@@ -32,7 +44,10 @@ impl Sub for Point {
     type Output = Point;
 
     fn sub(self, other: Point) -> Point {
-        Point { x: self.x - other.x, y: self.y - other.y }
+        Point {
+            x: self.x - other.x,
+            y: self.y - other.y,
+        }
     }
 }
 
@@ -40,13 +55,16 @@ impl Mul<i32> for Point {
     type Output = Point;
 
     fn mul(self, s: i32) -> Point {
-        Point { x: self.x * s, y: self.y * s }
+        Point {
+            x: self.x * s,
+            y: self.y * s,
+        }
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use theorem::math::{Point};
+    use theorem::math::Point;
 
     #[test]
     fn neg_point() {
