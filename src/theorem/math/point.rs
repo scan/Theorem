@@ -1,9 +1,23 @@
-use std::ops::{Add, Sub, Mul};
+use std::ops::{Add, Sub, Mul, Neg};
 
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq)]
 pub struct Point {
-    pub x: i32,
-    pub y: i32,
+    x: i32,
+    y: i32,
+}
+
+impl Point {
+    pub fn new(x: i32, y: i32) -> Point {
+        Point { x: x, y: y }
+    }
+}
+
+impl Neg for Point {
+    type Output = Point;
+
+    fn neg(self) -> Point {
+        Point { x: -self.x, y: -self.y }
+    }
 }
 
 impl Add for Point {
@@ -35,23 +49,30 @@ mod tests {
     use theorem::math::{Point};
 
     #[test]
+    fn neg_point() {
+        let v1 = Point::new(1, 1);
+        let v2 = Point::new(-1, -1);
+        assert_eq!(-v1, v2);
+    }
+
+    #[test]
     fn add_point() {
-        let v1 = Point { x: 1, y: 1 };
-        let v2 = Point { x: 2, y: 2 };
+        let v1 = Point::new(1, 1);
+        let v2 = Point::new(2, 2);
         assert_eq!(v1 + v1, v2);
     }
 
     #[test]
     fn sub_point() {
-        let v1 = Point { x: 1, y: 1 };
-        let v2 = Point { x: 0, y: 0 };
+        let v1 = Point::new(1, 1);
+        let v2 = Point::new(0, 0);
         assert_eq!(v1 - v1, v2);
     }
 
     #[test]
     fn mul_point() {
-        let v1 = Point { x: 1, y: 1 };
-        let v2 = Point { x: 2, y: 2 };
+        let v1 = Point::new(1, 1);
+        let v2 = Point::new(2, 2);
         assert_eq!(v1 * 2, v2);
     }
 }
