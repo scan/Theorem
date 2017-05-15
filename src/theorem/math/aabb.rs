@@ -10,6 +10,8 @@ pub struct AABB {
     pub right: i32,
 }
 
+pub type Rect = AABB;
+
 impl AABB {
     pub fn new(top: i32, left: i32, bottom: i32, right: i32) -> AABB {
         AABB {
@@ -20,7 +22,7 @@ impl AABB {
         }
     }
 
-    pub fn new_from_point(origin: Point, width: i32, height: i32) -> AABB {
+    pub fn new_from_origin(origin: Point, width: i32, height: i32) -> AABB {
         AABB {
             top: origin.y,
             left: origin.x,
@@ -29,27 +31,27 @@ impl AABB {
         }
     }
 
-    pub fn width(self) -> i32 {
+    pub fn width(&self) -> i32 {
         self.right - self.left
     }
 
-    pub fn height(self) -> i32 {
+    pub fn height(&self) -> i32 {
         self.bottom - self.top
     }
 
-    pub fn topleft(self) -> Point {
+    pub fn topleft(&self) -> Point {
         Point::new(self.left, self.top)
     }
 
-    pub fn bottomright(self) -> Point {
+    pub fn bottomright(&self) -> Point {
         Point::new(self.right, self.bottom)
     }
 
-    pub fn area(self) -> i32 {
+    pub fn area(&self) -> i32 {
         self.width() * self.height()
     }
 
-    pub fn merge(self, other: AABB) -> AABB {
+    pub fn merge(&self, other: AABB) -> AABB {
         AABB {
             top: min(self.top, other.top),
             left: min(self.left, other.left),
@@ -58,7 +60,7 @@ impl AABB {
         }
     }
 
-    pub fn split(self) -> (AABB, AABB, AABB, AABB) {
+    pub fn split(&self) -> (AABB, AABB, AABB, AABB) {
         let t2 = self.top / 2;
         let l2 = self.left / 2;
         let b2 = self.bottom / 2;
@@ -93,7 +95,7 @@ impl AABB {
                 });
     }
 
-    pub fn collides(self, other: AABB) -> bool {
+    pub fn collides(&self, other: AABB) -> bool {
         if self.left < other.right && self.right > other.left && self.top < other.bottom &&
            self.bottom > other.top {
             return true;
@@ -102,7 +104,7 @@ impl AABB {
         return false;
     }
 
-    pub fn contains(self, other: AABB) -> bool {
+    pub fn contains(&self, other: AABB) -> bool {
         if other.left >= self.left && other.right <= self.right && other.top >= self.top &&
            other.bottom <= self.bottom {
             return true;

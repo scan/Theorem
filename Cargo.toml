@@ -3,4 +3,6 @@ name = "theorem"
 version = "0.1.0"
 authors = ["Tom Streller <tom.streller@functional-games.de>"]
 
-[dependencies]
+[dependencies.sdl2]
+version = "0.29.*"
+features = ["image", "ttf"]
